@@ -1,0 +1,34 @@
+{{ if .Values.ingress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: {{ .Values.ingress.clusterIssuer }}
+  labels:
+    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: keycloak
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version}}
+  name: keycloak
+  namespace: {{ .Release.Namespace }}
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
+  rules:
+    - host: {{ .Values.ingress.domain | quote }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: keycloak
+                port:
+                  name: http
+            path: /
+            pathType: ImplementationSpecific
+{{if .Values.ingress.tls }}
+  tls:
+    - hosts:
+        - {{ .Values.ingress.domain| quote }}
+      secretName: "{{ .Values.ingress.domain }}-tls"
+{{- end }}
+{{- end -}}

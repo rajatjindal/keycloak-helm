@@ -1,0 +1,42 @@
+---
+global:
+  imagePullSecrets:
+    - name: regcred-keycloak
+image:
+  repository:
+  tag:
+isProduction: true
+ingress:
+  enabled: true
+  domain: keycloak.example.com
+  ingressClassName: "nginx"
+  tls: true
+  clusterIssuer: "letsencrypt-staging"
+extraEnvVars:
+extraVolumeMounts:
+extraVolumes:
+auth:
+  adminUser: admin
+  existingSecret: keycloak-admin-creds
+  passwordSecretKey: password
+db:
+  host: db.namespace.svc.cluster.local
+  user: postgres
+  port: "5432"
+  name: "keycloak"
+  existingSecret: ""
+  existingSecretPasswordKey: ""
+log:
+  level: "INFO"
+  output: "default"
+resources:
+  requests:
+    cpu: 500m
+    memory: 512Mi
+    ephemeralStorage: 50Mi
+  limits:
+    cpu: 750m
+    memory: 1Gi
+    ephemeralStorage: 2Gi
+initContainers:
+sidecars:
