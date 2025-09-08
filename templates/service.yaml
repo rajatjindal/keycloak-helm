@@ -11,11 +11,11 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   ports:
-    - name: http
-      nodePort: null
-      port: 80
-      protocol: TCP
-      targetPort: http
+  - name: http
+    nodePort: null
+    port: 80
+    protocol: TCP
+    targetPort: http
   selector:
     app.kubernetes.io/component: keycloak
     app.kubernetes.io/instance: keycloak

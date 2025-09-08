@@ -15,20 +15,20 @@ metadata:
 spec:
   ingressClassName: {{ .Values.ingress.ingressClassName | quote }}
   rules:
-    - host: {{ .Values.ingress.domain | quote }}
-      http:
-        paths:
-          - backend:
-              service:
-                name: keycloak
-                port:
-                  name: http
-            path: /
-            pathType: ImplementationSpecific
+  - host: {{ .Values.ingress.domain | quote }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: keycloak
+            port:
+              name: http
+        path: /
+        pathType: ImplementationSpecific
 {{if .Values.ingress.tls }}
   tls:
-    - hosts:
-        - {{ .Values.ingress.domain| quote }}
-      secretName: "{{ .Values.ingress.domain }}-tls"
+  - hosts:
+    - {{ .Values.ingress.domain| quote }}
+    secretName: "{{ .Values.ingress.domain }}-tls"
 {{- end }}
 {{- end -}}

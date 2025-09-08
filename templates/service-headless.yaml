@@ -12,14 +12,14 @@ metadata:
 spec:
   clusterIP: None
   ports:
-    - name: http
-      port: 8080
-      protocol: TCP
-      targetPort: http
-    - name: https
-      port: 8443
-      protocol: TCP
-      targetPort: https
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: http
+  - name: https
+    port: 8443
+    protocol: TCP
+    targetPort: https
   publishNotReadyAddresses: true
   selector:
     app.kubernetes.io/component: keycloak

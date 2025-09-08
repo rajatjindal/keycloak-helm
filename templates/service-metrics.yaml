@@ -15,22 +15,21 @@ metadata:
   namespace: keycloak
 spec:
   ports:
-    - name: metrics
-      port: 9000
-      protocol: TCP
-      targetPort: 9000
-    - name: http
-      port: 8080
-      protocol: TCP
-      targetPort: 8080
-    - name: https
-      port: 8443
-      protocol: TCP
-      targetPort: 8443
+  - name: metrics
+    port: 9000
+    protocol: TCP
+    targetPort: 9000
+  - name: http
+    port: 8080
+    protocol: TCP
+    targetPort: 8080
+  - name: https
+    port: 8443
+    protocol: TCP
+    targetPort: 8443
   selector:
     app.kubernetes.io/component: keycloak
     app.kubernetes.io/instance: keycloak
     app.kubernetes.io/name: keycloak
   type: ClusterIP
-
 {{- end }}

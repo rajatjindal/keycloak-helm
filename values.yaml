@@ -15,10 +15,6 @@ ingress:
 extraEnvVars:
 extraVolumeMounts:
 extraVolumes:
-auth:
-  adminUser: admin
-  existingSecret: keycloak-admin-creds
-  passwordSecretKey: password
 db:
   host: db.namespace.svc.cluster.local
   user: postgres

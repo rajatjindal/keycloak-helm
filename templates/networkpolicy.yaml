@@ -11,20 +11,20 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   egress:
-    - {}
+  - {}
   ingress:
-    - ports:
-        - port: 7800
-          protocol: TCP
-        - port: 9000
-          protocol: TCP
-        - port: 8080
-          protocol: TCP
+  - ports:
+    - port: 7800
+      protocol: TCP
+    - port: 9000
+      protocol: TCP
+    - port: 8080
+      protocol: TCP
   podSelector:
     matchLabels:
       app.kubernetes.io/component: keycloak
       app.kubernetes.io/instance: keycloak
       app.kubernetes.io/name: keycloak
   policyTypes:
-    - Ingress
-    - Egress
+  - Ingress
+  - Egress
