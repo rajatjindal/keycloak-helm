@@ -19,12 +19,14 @@ data:
   KC_DB_PORT: {{ .Values.db.port | quote }}
   KC_DB_URL_HOST: {{ .Values.db.host | quote }}
   KC_DB_USERNAME: {{ .Values.db.user | quote }}
-  KEYCLOAK_ENABLE_HTTPS: {{ .Values.ingress.tls | quote }}
-  KEYCLOAK_ENABLE_STATISTICS: 'true'
-  KEYCLOAK_HOSTNAME: {{ .Values.ingress.domain | quote }}
-  KEYCLOAK_HOSTNAME_STRICT: 'false'
-  KEYCLOAK_HTTP_PORT: '8080'
+  KC_HOSTNAME_DEBUG: "true"
+  KC_ENABLE_HTTPS: {{ .Values.ingress.tls | quote }}
+  KC_ENABLE_STATISTICS: 'true'
+  KC_HOSTNAME_ADMIN: "{{ ternary "https" "http" .Values.adminIngress.tls }}://{{ .Values.adminIngress.domain }}"
+  KC_HOSTNAME: "{{ ternary "https" "http" .Values.ingress.tls }}://{{ .Values.ingress.domain }}"
+  KC_HOSTNAME_STRICT: 'true'
+  KC_HTTP_PORT: '8080'
   KC_LOG_LEVEL: {{ .Values.log.level }}
-  KEYCLOAK_LOG_OUTPUT: {{ .Values.log.output }}
-  KEYCLOAK_PRODUCTION: {{ .Values.isProduction | quote }}
-  KEYCLOAK_PROXY_HEADERS: ''
+  KC_LOG_OUTPUT: {{ .Values.log.output }}
+  KC_PRODUCTION: {{ .Values.isProduction | quote }}
+  KC_PROXY_HEADERS: ''

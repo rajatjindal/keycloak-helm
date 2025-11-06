@@ -6,6 +6,8 @@ image:
   repository:
   tag:
 isProduction: true
+adminIngress:
+  enabled: false
 ingress:
   enabled: true
   domain: keycloak.example.com

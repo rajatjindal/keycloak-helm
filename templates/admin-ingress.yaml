@@ -1,0 +1,36 @@
+{{ if .Values.adminIngress.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    {{ if .Values.adminIngress.clusterIssuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.adminIngress.clusterIssuer }}
+    {{- end }}
+  labels:
+    app.kubernetes.io/component: keycloak
+    app.kubernetes.io/instance: keycloak
+    app.kubernetes.io/managed-by: Helm
+    app.kubernetes.io/name: keycloak
+    helm.sh/chart: {{ .Chart.Name }}-{{ .Chart.Version}}
+  name: keycloak-admin
+  namespace: {{ .Release.Namespace }}
+spec:
+  ingressClassName: {{ .Values.adminIngress.ingressClassName | quote }}
+  rules:
+  - host: {{ .Values.adminIngress.domain | quote }}
+    http:
+      paths:
+      - backend:
+          service:
+            name: keycloak
+            port:
+              name: http
+        path: /
+        pathType: ImplementationSpecific
+{{if .Values.adminIngress.tls }}
+  tls:
+  - hosts:
+    - {{ .Values.adminIngress.domain| quote }}
+    secretName: "{{ .Values.adminIngress.domain }}-tls"
+{{- end }}
+{{- end -}}
